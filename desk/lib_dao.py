@@ -608,6 +608,7 @@ SetStyle(DAO_DEFAULT)
 
 if __name__ == "__main__":
 
+    Export('dao_07_new')
     SetScale(5, 1)
     DrawDesk(-50)
     # DrawDaoClassicSlide()

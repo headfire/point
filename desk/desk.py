@@ -160,18 +160,18 @@ def ComputeTorus(argRadius1, argRadius2):
 class Exporter:
     def __init__(self):
         self.lines = []
-        self.dir = None
+        self.path = None
 
     @staticmethod
     def getArgStr(arg):
         return str(arg)
 
-    def setDir(self, dirName):
-        self.dir = dirName
+    def setPath(self, path):
+        self.path = path
 
     def log(self, funcName, arg1=None, arg2=None, arg3=None, arg4=None):
 
-        if self.dir is None:
+        if self.path is None:
             return
 
         if arg4 is not None:
@@ -189,7 +189,11 @@ class Exporter:
         self.lines.append(funcName + '(' + args + ')')
 
     def save(self):
-        with open('scene.js', 'a') as f:
+
+        if self.path is None:
+            return
+
+        with open(self.path + 'scene.js', 'a') as f:
             for line in self.lines:
                 f.write(line + '\n')
 
@@ -382,7 +386,6 @@ class Scene:
         self._groupEnd()
 
     def show(self):
-        self.ex.log('Show')
         self._render()
 
 
@@ -582,7 +585,11 @@ def ScaleGeom(value):
 
 def Show():
     scene.show()
+    scene.ex.save()
 
+
+def Export(slideName):
+    scene.ex.setPath('../vr/slides/' + slideName + '/')
 
 # *************************************************
 # Hierarchy
